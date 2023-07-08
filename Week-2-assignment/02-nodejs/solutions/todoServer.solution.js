@@ -41,10 +41,10 @@
  */
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const cors = require('cors')
 const app = express();
-
 app.use(bodyParser.json());
+app.use(cors());
 
 let todos = [];
 
@@ -63,7 +63,7 @@ app.get('/todos/:id', (req, res) => {
 
 app.post('/todos', (req, res) => {
   const newTodo = {
-    id: Math.floor(Math.random() * 1000000), // unique random id
+    id: Math.floor(Math.random() * 1000000),
     title: req.body.title,
     description: req.body.description
   };
@@ -97,4 +97,4 @@ app.use((req, res, next) => {
   res.status(404).send();
 });
 
-module.exports = app;
+app.listen(3000, ()=>console.log('Server started on 3000'))
